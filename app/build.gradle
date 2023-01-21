@@ -31,8 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-
+    buildFeatures{
+        dataBinding=true
+    }
 }
 
 dependencies {
@@ -62,8 +63,10 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation 'com.google.code.gson:gson:2.8.8'
     // navigation
 
     def nav_version = "2.5.3"
@@ -74,4 +77,8 @@ dependencies {
     def paging_version = "3.1.1"
 
     implementation "androidx.paging:paging-runtime:$paging_version"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 }

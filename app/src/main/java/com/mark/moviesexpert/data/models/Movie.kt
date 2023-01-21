@@ -1,6 +1,10 @@
 package com.mark.moviesexpert.data.models
 
-data class Result(
+import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.JsonClass
+@JsonClass(generateAdapter = true)
+
+ data class Movie(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
