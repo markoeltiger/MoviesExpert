@@ -22,7 +22,7 @@ class MoviePaging (val s : String , val moviesInterface: MoviesInterface):Paging
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val pageIndex = params.key?:TMDB_STARTING_PAGE_INDEX
      return try {
-                val  data = moviesInterface.getAllGenerMovies(Constants.API_KEY,"28",pageIndex)
+                val  data = moviesInterface.getAllGenerMovies(Constants.API_KEY,s,pageIndex)
          val movies = data.body()!!.results
          val nextKey =
              if (movies.isEmpty()) {

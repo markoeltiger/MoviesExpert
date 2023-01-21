@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mark.moviesexpert.MovieViewModel
 import com.mark.moviesexpert.R
+
 import com.mark.moviesexpert.databinding.FragmentMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,6 +25,7 @@ class MovieFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.setQuery("")
 
     }
 
@@ -60,6 +63,17 @@ class MovieFragment : Fragment() {
             movieAdapter.submitData(lifecycle, it)
         }
 
+        movieAdapter.onMovieClick {
+            println("marsk ${it}")
+            val action = MovieFragmentDirections.actionMovieFragmentToDetailsFragment()
+            action.id=it
+            viewModel.getMovieDetails(it)
+            findNavController().navigate(action)
+        }
+
+        viewModel.list.observe(viewLifecycleOwner) {
+            movieAdapter.submitData(lifecycle, it)
+        }
 
     }
 
@@ -69,5 +83,6 @@ class MovieFragment : Fragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
         }
     }
+
 
 }
