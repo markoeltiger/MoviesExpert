@@ -7,4 +7,7 @@ object Constants {
    const val GenereMoviesEndPoint= "discover/movie"
    const val SingleMovieEndPoing = "movie/"
    const val API_IMAGE_PATH ="http://image.tmdb.org/t/p/w500"
+   const val SearchMovieEndPoint= " search/movie"
+
+
 }

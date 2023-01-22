@@ -32,9 +32,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/generes_recycler"
+            app:reverseLayout="true"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_below="@+id/movie_toolbar"
+
             tools:listitem="@layout/view_holder_genre" />
 
         <androidx.recyclerview.widget.RecyclerView

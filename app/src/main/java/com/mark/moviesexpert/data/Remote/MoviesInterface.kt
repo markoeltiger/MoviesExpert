@@ -30,5 +30,12 @@ interface MoviesInterface {
         @Query("api_key") apiKey: String?,
         @Query("language") language: String?,
     ):SingleMovieResponse
+    @GET("${Constants.SearchMovieEndPoint}")
+    suspend fun getSearchMovie(
+
+        @Query("api_key") apiKey: String?,
+        @Query("query") keyWord:String,
+        @Query("page") page: Int?,
+    ):GenreMovies
 
 }

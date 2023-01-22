@@ -26,10 +26,11 @@ class MovieViewModel @Inject constructor(private val movieInterface: MoviesInter
 
 
     private val query = MutableLiveData<String>()
-
+    private val search=MutableLiveData<String>()
     val list = query.switchMap { query->
         Pager(PagingConfig(pageSize = 10)){
-            MoviePaging(query,movieInterface)
+
+            MoviePaging( query,movieInterface)
         }.liveData.cachedIn(viewModelScope)
     }
 

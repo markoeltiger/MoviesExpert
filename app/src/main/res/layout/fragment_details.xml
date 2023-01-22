@@ -171,7 +171,8 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{movieDetails.originalLanguage}"
+                        android:drawableStart="@drawable/ic_baseline_star_rate_24"
+                        android:text="@{movieDetails.voteAverage.toString()}"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -188,7 +189,7 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Released : "
+                        android:text="OverView : "
                         android:textSize="16sp" />
 
                     <TextView

@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mark.moviesexpert.MovieViewModel
+import com.mark.moviesexpert.data.models.Genre
 import com.mark.moviesexpert.databinding.FragmentMovieBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MovieFragment : Fragment() {
@@ -20,7 +22,7 @@ class MovieFragment : Fragment() {
     val viewModel: MovieViewModel by viewModels()
 
     val movieAdapter = MoviePagingAdapter()
-    lateinit var genresAdapter :RvAdapter
+    lateinit var genresAdapter: RvAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +47,11 @@ class MovieFragment : Fragment() {
 
         setRecyclerView()
 
-        binding.movieSearch.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener{
+        binding.movieSearch.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    viewModel.setQuery(it)
+                    viewModel.setQuery("search $it")
                 }
                 return true
             }
@@ -62,18 +65,42 @@ class MovieFragment : Fragment() {
         viewModel.list.observe(viewLifecycleOwner) {
             movieAdapter.submitData(lifecycle, it)
         }
-//        viewModel.movieGeneres.observe(viewLifecycleOwner) {
-//               genresAdapter = RvAdapter(it.peekContent().data!!.genres)
-//            setGenreRecyclerView()
-//
-//        }
+        viewModel.movieGeneres.observe(viewLifecycleOwner) {
+            if (it.peekContent().data?.genres != null) {
+
+                var genresList = it.peekContent().data!!.genres
+                var allGenre: Genre = Genre(0, "All")
+
+                genresList.toMutableList().add(0, allGenre)
+
+                val listofgenres: MutableList<Genre> = mutableListOf()
+                listofgenres.add(0, allGenre)
+                genresList.map {
+                    listofgenres.add(it)
+                }
+                genresAdapter = listofgenres.let { it1 -> RvAdapter(listofgenres) }
+                setGenreRecyclerView()
+
+                genresAdapter.onGenreCLick {
+                    if (it == "0") {
+                        viewModel.setQuery("")
+                    } else {
+                        viewModel.setQuery(it)
+                    }
+                }
+
+
+            }
+
+
+        }
         movieAdapter.onMovieClick {
-            println("marsk ${it}")
             val action = MovieFragmentDirections.actionMovieFragmentToDetailsFragment()
-            action.id=it
+            action.id = it
             viewModel.getMovieDetails(it)
             findNavController().navigate(action)
         }
+
 
         viewModel.list.observe(viewLifecycleOwner) {
             movieAdapter.submitData(lifecycle, it)
@@ -89,13 +116,15 @@ class MovieFragment : Fragment() {
 
 
     }
+
     private fun setGenreRecyclerView() {
-
-
-//        binding.generesRecycler.apply {
-//            adapter = genresAdapter
-//            layoutManager = LinearLayoutManager(requireContext())
-//        }
+        binding.generesRecycler.apply {
+            adapter = genresAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,true)
+        }
+        binding.generesRecycler.refreshDrawableState()
+         binding.generesRecycler.adapter = genresAdapter
 
     }
 

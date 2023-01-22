@@ -17,6 +17,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
+        android:id="@+id/card"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_marginTop="4dp"
@@ -29,17 +30,20 @@
             android:layout_height="wrap_content">
 
 
-            <com.google.android.material.textview.MaterialTextView
+            <TextView
                 android:id="@+id/name"
                 style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:textAlignment="center"
                 android:layout_height="wrap_content"
                  android:layout_marginStart="4dp"
+
                 android:layout_marginEnd="4dp"
                 android:text="@{genre.name}"
                 android:textSize="18dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
-                tools:text="hello how are you" />
+                tools:text="Comedy" />
 
 
 
