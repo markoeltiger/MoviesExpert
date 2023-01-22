@@ -18,7 +18,7 @@
             android:id="@+id/movie_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cardview_shadow_end_color"
+            android:background="@color/purple_500"
             app:title="Movies"
             app:titleTextColor="@color/white">
 
