@@ -62,11 +62,11 @@ class MovieFragment : Fragment() {
         viewModel.list.observe(viewLifecycleOwner) {
             movieAdapter.submitData(lifecycle, it)
         }
-        viewModel.movieGeneres.observe(viewLifecycleOwner) {
-               genresAdapter = RvAdapter(it.peekContent().data!!.genres)
-            setGenreRecyclerView()
-
-        }
+//        viewModel.movieGeneres.observe(viewLifecycleOwner) {
+//               genresAdapter = RvAdapter(it.peekContent().data!!.genres)
+//            setGenreRecyclerView()
+//
+//        }
         movieAdapter.onMovieClick {
             println("marsk ${it}")
             val action = MovieFragmentDirections.actionMovieFragmentToDetailsFragment()
@@ -91,11 +91,11 @@ class MovieFragment : Fragment() {
     }
     private fun setGenreRecyclerView() {
 
-        binding.generes_recycler.apply{
-            adapter = genresAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
 
+//        binding.generesRecycler.apply {
+//            adapter = genresAdapter
+//            layoutManager = LinearLayoutManager(requireContext())
+//        }
 
     }
 
