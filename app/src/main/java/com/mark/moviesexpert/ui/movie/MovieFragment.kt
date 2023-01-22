@@ -67,10 +67,8 @@ class MovieFragment : Fragment() {
         }
         viewModel.movieGeneres.observe(viewLifecycleOwner) {
             if (it.peekContent().data?.genres != null) {
-
                 var genresList = it.peekContent().data!!.genres
                 var allGenre: Genre = Genre(0, "All")
-
                 genresList.toMutableList().add(0, allGenre)
 
                 val listofgenres: MutableList<Genre> = mutableListOf()
@@ -121,10 +119,10 @@ class MovieFragment : Fragment() {
         binding.generesRecycler.apply {
             adapter = genresAdapter
             layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,true)
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true)
         }
         binding.generesRecycler.refreshDrawableState()
-         binding.generesRecycler.adapter = genresAdapter
+        binding.generesRecycler.adapter = genresAdapter
 
     }
 

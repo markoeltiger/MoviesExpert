@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mark.moviesexpert.MovieViewModel
- import com.mark.moviesexpert.databinding.FragmentDetailsBinding
+import com.mark.moviesexpert.databinding.FragmentDetailsBinding
 import com.mark.moviesexpert.utils.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +18,7 @@ class DetailsFragment : Fragment() {
 
     lateinit var binding: FragmentDetailsBinding
 
-    val     args:   DetailsFragmentArgs  by navArgs()
+    val args: DetailsFragmentArgs by navArgs()
 
     val viewModel: MovieViewModel by viewModels()
 
@@ -30,6 +30,7 @@ class DetailsFragment : Fragment() {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
@@ -38,7 +39,8 @@ class DetailsFragment : Fragment() {
         }
         args.id?.let {
             println("argsId ${it}")
-            viewModel.getMovieDetails(it) }
+            viewModel.getMovieDetails(it)
+        }
 
         viewModel.movieDetails.observe(viewLifecycleOwner) {
             when (it.getContentIfNotHandled()?.status) {

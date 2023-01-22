@@ -15,13 +15,14 @@ interface MoviesInterface {
     suspend fun getAllMovieGeners(
         @Query("api_key") apiKey: String?,
         @Query("language") language: String?,
-    ):GeneresResponse
+    ): GeneresResponse
+
     @GET(Constants.GenereMoviesEndPoint)
     suspend fun getAllGenerMovies(
         @Query("api_key") apiKey: String?,
         @Query("with_genres") genere: String?,
         @Query("page") page: Int?,
-    ):Response<GenreMovies>
+    ): Response<GenreMovies>
 
     @GET("${Constants.SingleMovieEndPoing}{id}")
     suspend fun getSingleMovie(
@@ -29,13 +30,14 @@ interface MoviesInterface {
 
         @Query("api_key") apiKey: String?,
         @Query("language") language: String?,
-    ):SingleMovieResponse
+    ): SingleMovieResponse
+
     @GET("${Constants.SearchMovieEndPoint}")
     suspend fun getSearchMovie(
 
         @Query("api_key") apiKey: String?,
-        @Query("query") keyWord:String,
+        @Query("query") keyWord: String,
         @Query("page") page: Int?,
-    ):GenreMovies
+    ): GenreMovies
 
 }

@@ -46,6 +46,12 @@
                         app:load="@{movieDetails.backdropPath}" />
 
                     <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_gradient_dark_bottom" />
+
+                    <ImageView
                         android:id="@+id/back_press"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -117,7 +123,7 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Actors : "
+                        android:text="Realse Date : "
                         android:textSize="16sp" />
 
                     <TextView
@@ -141,14 +147,14 @@
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Writers : "
+                        android:text="TagLine : "
                         android:textSize="16sp" />
 
                     <TextView
                         style="@style/TextAppearance.AppCompat.Title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{movieDetails.title}"
+                        android:text="@{movieDetails.tagline}"
                         android:textSize="16sp" />
                 </LinearLayout>
 

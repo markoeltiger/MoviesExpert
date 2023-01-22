@@ -9,16 +9,25 @@ import com.mark.moviesexpert.BR
 import com.mark.moviesexpert.data.models.Movie
 import com.mark.moviesexpert.databinding.ViewHolderMovieBinding
 
-class MoviePagingAdapter : PagingDataAdapter<com.mark.moviesexpert.data.models.Movie, MoviePagingAdapter.MyViewHolder>(DIFF_UTIL) {
+class MoviePagingAdapter :
+    PagingDataAdapter<com.mark.moviesexpert.data.models.Movie, MoviePagingAdapter.MyViewHolder>(
+        DIFF_UTIL
+    ) {
     var onCLick: ((String) -> Unit)? = null
 
     companion object {
         val DIFF_UTIL = object : DiffUtil.ItemCallback<com.mark.moviesexpert.data.models.Movie>() {
-            override fun areItemsTheSame(oldItem: Movie, newItem: com.mark.moviesexpert.data.models.Movie): Boolean {
+            override fun areItemsTheSame(
+                oldItem: Movie,
+                newItem: com.mark.moviesexpert.data.models.Movie
+            ): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: com.mark.moviesexpert.data.models.Movie, newItem: com.mark.moviesexpert.data.models.Movie): Boolean {
+            override fun areContentsTheSame(
+                oldItem: com.mark.moviesexpert.data.models.Movie,
+                newItem: com.mark.moviesexpert.data.models.Movie
+            ): Boolean {
                 return oldItem == newItem
             }
         }
@@ -39,6 +48,7 @@ class MoviePagingAdapter : PagingDataAdapter<com.mark.moviesexpert.data.models.M
             }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding =
             ViewHolderMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)

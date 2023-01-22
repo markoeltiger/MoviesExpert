@@ -12,7 +12,8 @@ import java.io.IOException
 
 private const val TMDB_STARTING_PAGE_INDEX = 1
 
-class MoviePaging ( val s : String , val moviesInterface: MoviesInterface):PagingSource<Int, Movie>() {
+class MoviePaging(val s: String, val moviesInterface: MoviesInterface) :
+    PagingSource<Int, Movie>() {
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -22,64 +23,57 @@ class MoviePaging ( val s : String , val moviesInterface: MoviesInterface):Pagin
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-        val pageIndex = params.key?:TMDB_STARTING_PAGE_INDEX
-     return try {
-         if (s.contains("search")) {
+        val pageIndex = params.key ?: TMDB_STARTING_PAGE_INDEX
+        return try {
+            if (s.contains("search")) {
 
-                    s.split(" ")
+                s.split(" ")
 
-                    val data = moviesInterface.getSearchMovie(
-                        Constants.API_KEY,
-                        s.split(" ")[1],
-                        pageIndex
-                    )
-             Log.e("searcxh", data.results.get(0).title.toString())
+                val data = moviesInterface.getSearchMovie(
+                    Constants.API_KEY,
+                    s.split(" ")[1],
+                    pageIndex
+                )
 
-                    val movies = data.results
+                val movies = data.results
 
-                    val nextKey =
-                        if (movies.isEmpty()) {
+                val nextKey =
+                    if (movies.isEmpty()) {
 
-                            null
-                        } else {
+                        null
+                    } else {
 
-                            pageIndex + (params.loadSize / 25)
-                        }
+                        pageIndex + (params.loadSize / 25)
+                    }
 
-                    LoadResult.Page(
-                        data = movies,
-                        prevKey = if (pageIndex == TMDB_STARTING_PAGE_INDEX) null else pageIndex,
-                        nextKey = nextKey?.plus(1)
-                    )
-                }else{
-                    var  data = moviesInterface.getAllGenerMovies(Constants.API_KEY,s,pageIndex)
-                    val movies = data.body()!!.results
-                    val nextKey =
-                        if (movies.isEmpty()) {
-                            null
-                        } else {
+                LoadResult.Page(
+                    data = movies,
+                    prevKey = if (pageIndex == TMDB_STARTING_PAGE_INDEX) null else pageIndex,
+                    nextKey = nextKey?.plus(1)
+                )
+            } else {
+                var data = moviesInterface.getAllGenerMovies(Constants.API_KEY, s, pageIndex)
+                val movies = data.body()!!.results
+                val nextKey =
+                    if (movies.isEmpty()) {
+                        null
+                    } else {
 
-                            pageIndex + (params.loadSize / 25)
-                        }
-                    LoadResult.Page(
-                        data = movies,
-                        prevKey = if (pageIndex == TMDB_STARTING_PAGE_INDEX) null else pageIndex,
-                        nextKey = nextKey?.plus(1)
-                    )
-                }
+                        pageIndex + (params.loadSize / 25)
+                    }
+                LoadResult.Page(
+                    data = movies,
+                    prevKey = if (pageIndex == TMDB_STARTING_PAGE_INDEX) null else pageIndex,
+                    nextKey = nextKey?.plus(1)
+                )
+            }
 
 
-     } catch (exception: IOException) {
-         println(exception)
-         Timber.tag("Search").e(exception)
+        } catch (exception: IOException) {
 
-         return LoadResult.Error(exception)
-     } catch (exception: HttpException) {
-         println(exception)
-
-         Timber.tag("Search").e(exception)
-
-         return LoadResult.Error(exception)
-     }
+            return LoadResult.Error(exception)
+        } catch (exception: HttpException) {
+            return LoadResult.Error(exception)
+        }
     }
 }
