@@ -6,6 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
 import com.mark.moviesexpert.data.Remote.MoviesInterface
+import com.mark.moviesexpert.data.models.GeneresResponse
 import com.mark.moviesexpert.data.models.SingleMovieResponse
 import com.mark.moviesexpert.repository.MovieDetailsRepository
 import com.mark.moviesexpert.ui.movie.MoviePaging
@@ -37,12 +38,17 @@ class MovieViewModel @Inject constructor(private val movieInterface: MoviesInter
     }
     private val _movieDetails = MutableLiveData<Events<com.mark.moviesexpert.utils.Result<SingleMovieResponse>>>()
     val movieDetails: LiveData<Events<com.mark.moviesexpert.utils.Result<SingleMovieResponse>>> = _movieDetails
+    private val _moviesGeneres = MutableLiveData<Events<com.mark.moviesexpert.utils.Result<GeneresResponse>>>()
+    val movieGeneres: LiveData<Events<com.mark.moviesexpert.utils.Result<GeneresResponse>>> = _moviesGeneres
 
+    fun getMoviesGeneres() = viewModelScope.launch {
+        _moviesGeneres.postValue(Events(com.mark.moviesexpert.utils.Result(Status.LOADING,null,null)))
+        _moviesGeneres.postValue(Events(repository.getMoviesGenres()))
+     }
 
     fun getMovieDetails(Id: String) = viewModelScope.launch {
         _movieDetails.postValue(Events(com.mark.moviesexpert.utils.Result(Status.LOADING,null,null)))
         _movieDetails.postValue(Events(repository.getMovieDetails(Id)))
-//       movieInterface.getSingleMovie(Id,Constants.API_KEY,"en-US")
-    }
+     }
 
 }

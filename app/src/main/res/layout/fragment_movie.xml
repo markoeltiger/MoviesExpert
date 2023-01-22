@@ -30,12 +30,18 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/generes_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/movie_toolbar"
+            tools:listitem="@layout/view_holder_genre" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/movie_toolbar"
+            android:layout_below="@+id/generes_recycler"
             tools:listitem="@layout/view_holder_movie" />
 
 

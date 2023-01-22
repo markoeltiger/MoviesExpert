@@ -34,7 +34,7 @@ class MoviePaging (val s : String , val moviesInterface: MoviesInterface):Paging
          LoadResult.Page(
              data = movies,
              prevKey = if (pageIndex == TMDB_STARTING_PAGE_INDEX) null else pageIndex,
-             nextKey = nextKey
+             nextKey = nextKey?.plus(1)
          )
 
      } catch (exception: IOException) {
